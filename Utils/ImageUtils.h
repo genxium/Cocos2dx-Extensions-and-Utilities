@@ -14,6 +14,8 @@ public:
     static CCSprite* getGraySprite(const char*);
     static CCSprite* getGraySprite(CCSprite * sprite, CCRect rect = CCRectZero );
     static CCSprite* getGraySpriteWithTexture(CCTexture2D*, const char*);
+    static CCTexture2D* getGrayTexture(const char* path);
+    
     static CCSprite* getBrighterSprite(CCSprite* sprite, float increasedPercentage);
     static CCTexture2D* getBrighterTexture(CCTexture2D* src, float increasedPercentage);
     
@@ -21,7 +23,7 @@ public:
     static CCNode* createStrokeForSprite(CCSprite* label, float size, ccColor3B color, GLubyte opacity);
     static CCNode* createLabelWithStroke(CCString* content, CCSize labelSize, float baseFontSize, const char* fontName="", float strokeSize=1, ccColor3B color=ccBLACK, GLubyte opacity=200, bool isAutoSized=true);
     
-    static CCTexture2D* getGrayTexture(const char* path);
+
     static CCRect calculateRect(CCSprite* spr, CCRect rect);
     static CCPoint getPositionByFrameworkRatio(CCNode* parent, float xRatio, float yRatio);
     static void addChildByFrameworkRatio(CCNode* child, CCNode* parent, float xRatio, float yRatio);

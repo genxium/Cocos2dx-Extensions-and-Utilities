@@ -132,6 +132,19 @@ CCSprite* ImageUtils::getGraySpriteWithTexture(cocos2d::CCTexture2D * src, const
     return spr;
 }
 
+CCTexture2D* ImageUtils::getGrayTexture(const char* path){
+    const char* grayPrefix = kGrayPrefix;
+    CCString* key=CCString::createWithFormat("%s%s",grayPrefix,path);
+    CCTexture2D* retTexture=CCTextureCache::sharedTextureCache()->textureForKey(key->getCString());
+    if(retTexture==NULL){
+        CCTexture2D* src=CCTextureCache::sharedTextureCache()->addImage(path);
+        CCImage* image=ImageUtils::rgbToGray(src);
+        retTexture=CCTextureCache::sharedTextureCache()->addUIImage(image, key->getCString());
+        CC_SAFE_DELETE(image);
+    }
+    return retTexture;
+}
+
 CCSprite* ImageUtils::getBrighterSprite(cocos2d::CCSprite *sprite, float increasedBrightness){
     if ( sprite == NULL ) {
         return NULL;
@@ -159,19 +172,6 @@ CCTexture2D* ImageUtils::getBrighterTexture(CCTexture2D* src, float increasedBri
     CCImage* image=ImageUtils::increasedBrightness(src, increasedBrightness);
     CCString* key=CCString::createWithFormat("%sannoymous.png", kBrightPrefix);
     return CCTextureCache::sharedTextureCache()->addUIImage(image, key->getCString());
-}
-
-CCTexture2D* ImageUtils::getGrayTexture(const char* path){
-    const char* grayPrefix = kGrayPrefix;
-    CCString* key=CCString::createWithFormat("%s%s",grayPrefix,path);
-    CCTexture2D* retTexture=CCTextureCache::sharedTextureCache()->textureForKey(key->getCString());
-    if(retTexture==NULL){
-        CCTexture2D* src=CCTextureCache::sharedTextureCache()->addImage(path);
-        CCImage* image=ImageUtils::rgbToGray(src);
-        retTexture=CCTextureCache::sharedTextureCache()->addUIImage(image, key->getCString());
-        CC_SAFE_DELETE(image);
-    }
-    return retTexture;
 }
 
 CCSprite* ImageUtils::changeRGBGradientSpriteFromFile(const char *path, ccColor3B colorFrom, ccColor3B colorTo){
